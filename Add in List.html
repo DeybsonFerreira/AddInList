@@ -12,7 +12,7 @@
   <div class="container">
     <div class="form-inline">
       <input class="form-control" id="textInput" type="text" ng-model="item.name">
-      <button class="btn btn-success" ng-click="btnAdicionar(item)">+</button>
+      <button class="btn btn-success" id="idAdd" ng-click="btnAdicionar(item)">+</button>
     </div>
 
     <div ng-repeat="item in ItenList">
@@ -56,11 +56,18 @@
     app.controller('MainCtrl', function ($scope) {
       $scope.ItenList = [];
 
-
-
+      // Adicionar com Enter
+      var input = document.getElementById("textInput");
+      input.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          document.getElementById("idAdd").click();
+        }
+      });
 
       $scope.btnAdicionar = function (ItenList) {
         $("#textInput").val("");
+        $("#textInput").focus();
         delete $scope.item;
         var item = angular.copy(ItenList);
         $scope.ItenList.push(item);
