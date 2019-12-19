@@ -1,0 +1,86 @@
+<head>
+
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.min.js"></script>
+</head>
+
+<div ng-app="angularApp" ng-controller="MainCtrl">
+
+  <br>
+
+  <div class="container">
+    <div class="form-inline">
+      <input class="form-control" id="textInput" type="text" ng-model="item.name">
+      <button class="btn btn-success" ng-click="btnAdicionar(item)">+</button>
+    </div>
+
+    <div ng-repeat="item in ItenList">
+      <br>
+      <div class="form-inline">
+        <input class="form-control" type="text" ng-model="item.name">
+        <button class="btn btn-danger" ng-click="btnRemoveItem(item)">-</button>
+      </div>
+    </div>
+  </div>
+
+
+  <style>
+    #itemDisplay {
+      padding: 10px;
+      background: rgb(227, 250, 227);
+      border: 1px solid rgb(171, 239, 171);
+      color: rgb(9, 56, 9);
+    }
+
+    .remove {
+      background: #C76868;
+      color: #FFF;
+      font-weight: bold;
+      font-size: 21px;
+      border: 0;
+      cursor: pointer;
+      display: inline-block;
+      padding: 4px 9px;
+      vertical-align: top;
+      line-height: 100%;
+    }
+  </style>
+
+
+
+  <script>
+
+    var app = angular.module('angularApp', []);
+
+    app.controller('MainCtrl', function ($scope) {
+      $scope.ItenList = [];
+
+
+
+
+      $scope.btnAdicionar = function (ItenList) {
+        $("#textInput").val("");
+        delete $scope.item;
+        var item = angular.copy(ItenList);
+        $scope.ItenList.push(item);
+
+      };
+
+      $scope.btnRemoveItem = function (item) {
+
+        var index = -1;
+        var comArr = eval($scope.ItenList);
+        for (var i = 0; i < comArr.length; i++) {
+          if (comArr[i] === item) {
+            index = i;
+            break;
+          }
+        }
+        $scope.ItenList.splice(index, 1);
+      };
+
+    });
+
+
+  </script>
